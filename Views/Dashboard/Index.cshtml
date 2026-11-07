@@ -1,0 +1,85 @@
+﻿@model Practicum.Models.DashboardViewModel
+
+<h2>Field Dashboard</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (User.IsInRole("Admin") || User.IsInRole("Agronomist"))
+{
+    <form asp-action="SeedTelemetry" method="post" class="mb-3">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-secondary">
+            Seed sample telemetry
+        </button>
+    </form>
+}
+
+<h4>Devices</h4>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Field</th>
+            <th>Status</th>
+            <th>Last updated (UTC)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model.Devices)
+        {
+            <tr>
+                <td>@d.DeviceId</td>
+                <td>@d.FieldName</td>
+                <td>@d.Status</td>
+                <td>@d.LastUpdated</td>
+                <td>
+                    <form asp-action="TriggerIrrigation" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="deviceId"
+                               value="@d.DeviceId" />
+                        <button type="submit"
+                                class="btn btn-primary btn-sm">
+                            Trigger Irrigation
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Latest telemetry</h4>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Device</th>
+            <th>Soil moisture %</th>
+            <th>Temperature °C</th>
+            <th>Time (UTC)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model.Telemetry)
+        {
+            <tr>
+                <td>@t.DeviceId</td>
+                <td>@t.SoilMoisture</td>
+                <td>@t.Temperature</td>
+                <td>@t.ReadingTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

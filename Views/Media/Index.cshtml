@@ -1,0 +1,49 @@
+﻿@model List<Practicum.Models.BlobItemViewModel>
+
+<h2>Drone Images / Farm Media</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<form asp-action="Upload"
+      method="post"
+      enctype="multipart/form-data"
+      class="mb-4">
+
+    @Html.AntiForgeryToken()
+
+    <input type="file"
+           name="file"
+           class="form-control mb-2"
+           style="max-width:400px"
+           accept="image/*" />
+
+    <button type="submit" class="btn btn-success">
+        Upload
+    </button>
+</form>
+
+<div class="row">
+    @foreach (var b in Model)
+    {
+        <div class="col-md-3 mb-3">
+            <div class="card">
+                <img src="@b.Url"
+                     class="card-img-top"
+                     alt="@b.Name" />
+
+                <div class="card-body small">
+                    @b.Name
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

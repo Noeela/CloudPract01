@@ -1,0 +1,23 @@
+﻿@model List<Practicum.Models.User>
+<h2>User Management</h2>
+<table class="table">
+    <tr><th>Username</th><th>Role</th><th>Change role</th></tr>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.Username</td>
+            <td>@u.Role</td>
+            <td>
+                <form asp-action="ChangeRole" method="post" class="d-flex gap-2">
+                    <input type="hidden" name="id" value="@u.UserId" />
+                    <select name="role" class="form-select form-select-sm" style="width:150px">
+                        <option>Farmer</option>
+                        <option>Agronomist</option>
+                        <option>Admin</option>
+                    </select>
+                    <button class="btn btn-sm btn-outline-primary">Save</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

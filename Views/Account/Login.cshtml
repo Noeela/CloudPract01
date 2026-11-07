@@ -1,0 +1,10 @@
+﻿
+@model ViewModel
+<h2>Login</h2>
+<form asp-action="Login" method="post" style="max-width:350px">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="mb-3"><label>Username</label><input asp-for="Username" class="form-control" /></div>
+    <div class="mb-3"><label>Password</label><input asp-for="Password" class="form-control" /></div>
+    <button class="btn btn-success">Login</button>
+    <a asp-action="Register">Register</a>
+</form>

@@ -1,0 +1,33 @@
+﻿@model Practicum.Models.ViewModel
+
+<h2>Register</h2>
+
+<form asp-action="Register" method="post" style="max-width:350px">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Username"></label>
+        <input asp-for="Username" class="form-control" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Role"></label>
+        <select asp-for="Role" class="form-select">
+            <option value="Farmer">Farmer</option>
+            <option value="Agronomist">Agronomist</option>
+        </select>
+        <span asp-validation-for="Role" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create account</button>
+
+</form>
+
